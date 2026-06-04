@@ -1,27 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DBD Killer Control</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBD Randomizer</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family:Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.menu{
+    text-align:center;
+}
+
+h1{
+    margin-bottom:40px;
+}
+
+.btn{
+    display:block;
+    width:300px;
+    margin:20px auto;
+    padding:20px;
+    background:#111;
+    border:2px solid #b30000;
+    color:white;
+    text-decoration:none;
+    font-size:22px;
+    font-weight:bold;
+    border-radius:15px;
+    transition:.2s;
+}
+
+.btn:hover{
+    background:#b30000;
+}
+</style>
+
 </head>
 <body>
 
-<div class="container">
+<div class="menu">
 
-  <div class="controls">
-    <button onclick="randomOrder()">ORDEN ALEATORIO</button>
-    <button onclick="addWin()">VICTORIA</button>
-    <button onclick="addLoss()">DERROTA</button>
-    <button onclick="resetAll()">REINICIO TOTAL</button>
-  </div>
+    <h1>DBD RANDOMIZER</h1>
 
-  <div id="killerGrid" class="grid"></div>
+    <a class="btn" href="custom.html">
+        LISTA PERSONALIZADA
+    </a>
+
+    <a class="btn" href="random.html">
+        KILLER ALEATORIO
+    </a>
 
 </div>
-
-<script type="module" src="script.js"></script>
 
 </body>
 </html>
