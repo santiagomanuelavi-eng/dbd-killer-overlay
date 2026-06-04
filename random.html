@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Killer Aleatorio</title>
+
+<style>
+body{
+    margin:0;
+    background:#000;
+    color:white;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    text-align:center;
+}
+
+img{
+    width:300px;
+    height:300px;
+    object-fit:contain;
+    background:#111;
+    border-radius:15px;
+    padding:10px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+#killerName{
+    margin:20px 0;
+    font-size:32px;
+    font-weight:bold;
+}
+
+button{
+    padding:15px 30px;
+    background:#b30000;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.back{
+    display:block;
+    margin-top:25px;
+    color:white;
+    text-decoration:none;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>KILLER ALEATORIO</h1>
+
+    <img id="killerImage" src="" alt="killer">
+
+    <div id="killerName">Pulsa el botón</div>
+
+    <button onclick="newKiller()">
+        NUEVO KILLER
+    </button>
+
+    <a class="back" href="index.html">
+        ← Volver al menú
+    </a>
+
+</div>
+
+<script>
+
+const killers = [
+
+["The Trapper","K01_TheTrapper_Portrait.png"],
+["The Wraith","K02_TheWraith_Portrait.png"],
+["The Hillbilly","K03_TheHillBilly_Portrait.png"],
+["The Nurse","K04_TheNurse_Portrait.png"],
+["The Shape","K05_TheShape_Portrait.png"],
+["The Hag","K06_TheHag_Portrait.png"],
+["The Doctor","K07_TheDoctor_Portrait.png"],
+["The Huntress","K08_TheHuntress_Portrait.png"],
+["The Cannibal","K09_TheCannibal_Portrait.png"],
+["The Nightmare","K10_TheNightmare_Portrait.png"],
+["The Pig","K11_ThePig_Portrait.png"],
+["The Clown","K12_TheClown_Portrait.png"],
+["The Spirit","K13_TheSpirit_Portrait.png"],
+["The Legion","K14_TheLegion_Portrait.png"],
+["The Plague","K16_ThePlague_Portrait.png"],
+["The Ghost Face","K17_TheGhostFace_Portrait.png"],
+["The Demogorgon","K18_TheDemogorgon_Portrait.png"],
+["The Oni","K19_TheOni_Portrait.png"],
+["The Deathslinger","K20_TheDeathslinger_Portrait.png"],
+["The Executioner","K21_TheExecutioner_Portrait.png"],
+["The Blight","K22_TheBlight_Portrait.png"],
+["The Twins","K23_TheTwins_Portrait.png"],
+["The Trickster","K24_TheTrickster_Portrait.png"],
+["The Nemesis","K25_TheNemesis_Portrait.png"],
+["The Cenobite","K26_TheCenobite_Portrait.png"],
+["The Artist","K28_TheArtist_Portrait.png"],
+["The Onryō","K27_TheOnryo_Portrait.png"],
+["The Dredge","K29_TheDredge_Portrait.png"],
+["The Mastermind","K30_TheWesker_Portrait.png"],
+["The Knight","K31_TheKnight_Portrait.png"],
+["The Skull Merchant","K32_TheSkullMerchant_Portrait.png"],
+["The Singularity","K33_TheSingularity_Portrait.png"],
+["The Xenomorph","K34_TheXenomorph_Portrait.png"],
+["The Good Guy","K35_TheGoodGuy_Portrait.png"],
+["The Unknown","K36_TheUnknown_Portrait.png"],
+["The Lich","K37_TheLich_Portrait.png"],
+["The Dark Lord","K38_TheDarkLord_Portrait.png"],
+["The Houndmaster","K39_TheHoundmaster_Portrait.png"],
+["The Animatronic","K40_TheAnimatronic_Portrait.png"],
+["The Ghoul","K41_TheGhoul_Portrait.png"],
+["The Krasue","K42_TheKrasue_Portrait.png"]
+
+];
+
+function newKiller(){
+
+    const random = killers[Math.floor(Math.random() * killers.length)];
+
+    document.getElementById("killerName").textContent = random[0];
+
+    document.getElementById("killerImage").src =
+        "images/" + random[1];
+}
+
+</script>
+
+</body>
+</html>
