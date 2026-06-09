@@ -127,6 +127,74 @@ window.randomOrder = function(){
     selectedOrder = [...selectedOrder].sort(() => Math.random() - 0.5);
 
     renderKillers();
+  }
+let rouletteRunning = false;
+
+window.spinRoulette = function(){
+
+    if(rouletteRunning) return;
+
+    rouletteRunning = true;
+
+    const boxes = document.querySelectorAll(".killer");
+
+    let current = 0;
+    let speed = 60;
+    let loops = 0;
+
+    function spin(){
+
+        boxes.forEach(box =>
+            box.classList.remove("selected")
+        );
+
+        boxes[current].classList.add("selected");
+
+        current++;
+
+        if(current >= boxes.length){
+            current = 0;
+            loops++;
+        }
+
+        if(loops < 4){
+
+            setTimeout(spin, speed);
+
+        }else{
+
+            speed += 12;
+
+            if(speed < 260){
+
+                setTimeout(spin, speed);
+
+            }else{
+
+                const winnerIndex =
+                    current === 0
+                    ? boxes.length - 1
+                    : current - 1;
+
+                const winner =
+                    killers[winnerIndex];
+
+                document.getElementById("winnerImage").src =
+                    winner.img;
+
+                document.getElementById("winnerName").textContent =
+                    winner.name;
+
+                document.getElementById("winnerBox").style.display =
+                    "block";
+
+                rouletteRunning = false;
+            }
+        }
+    }
+
+    spin();
+}
   let rouletteRunning = false;
 
 window.spinRoulette = function(){
