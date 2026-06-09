@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DBD Killer Control</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBD Killer Control</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
 
-  <div class="controls">
-    <button onclick="spinRoulette()">🎰 GIRAR RULETA</button>
-    <button onclick="addWin()">VICTORIA</button>
-    <button onclick="addLoss()">DERROTA</button>
-    <button onclick="resetAll()">REINICIO TOTAL</button>
-  </div>
+<div class="controls">
+<button onclick="spinRoulette()">🎰 GIRAR RULETA</button>
+<button onclick="resetAll()">REINICIAR</button>
+</div>
 
-  <div id="killerGrid" class="grid"></div>
+<div id="killerGrid" class="grid"></div>
 
-  <div id="winnerBox" style="display:none;text-align:center;margin-top:30px;">
-      <h2>🏆 KILLER ELEGIDO</h2>
+<div id="winnerBox" style="display:none;text-align:center;margin-top:30px;">
+<h2>🏆 KILLER ELEGIDO</h2>
 
-      <img id="winnerImage"
-      style="
-      width:300px;
-      height:300px;
-      object-fit:contain;
-      ">
+<img id="winnerImage"
+style="
+width:300px;
+height:300px;
+object-fit:contain;
+">
 
-      <h1 id="winnerName"></h1>
-  </div>
+<h1 id="winnerName"></h1>
 
 </div>
 
-<script type="module" src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
