@@ -157,4 +157,4 @@ spin();
 
 }
 
-renderKillers(); 
+renderKillers();
