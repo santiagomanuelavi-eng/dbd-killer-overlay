@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -11,13 +11,26 @@
 <div class="container">
 
   <div class="controls">
-    <button onclick="randomOrder()">ORDEN ALEATORIO</button>
+    <button onclick="spinRoulette()">🎰 GIRAR RULETA</button>
     <button onclick="addWin()">VICTORIA</button>
     <button onclick="addLoss()">DERROTA</button>
     <button onclick="resetAll()">REINICIO TOTAL</button>
   </div>
 
   <div id="killerGrid" class="grid"></div>
+
+  <div id="winnerBox" style="display:none;text-align:center;margin-top:30px;">
+      <h2>🏆 KILLER ELEGIDO</h2>
+
+      <img id="winnerImage"
+      style="
+      width:300px;
+      height:300px;
+      object-fit:contain;
+      ">
+
+      <h1 id="winnerName"></h1>
+  </div>
 
 </div>
 
