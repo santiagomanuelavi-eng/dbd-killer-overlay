@@ -1,3 +1,19 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCjfzsrXDWEeCdFiIvMebJ2Wz3LdK8wt5I",
+  authDomain: "dbd-killer-overlay.firebaseapp.com",
+  databaseURL: "https://dbd-killer-overlay-default-rtdb.firebaseio.com",
+  projectId: "dbd-killer-overlay",
+  storageBucket: "dbd-killer-overlay.firebasestorage.app",
+  messagingSenderId: "1095235884841",
+  appId: "1:1095235884841:web:7c60d377704702dd2b4938"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
 const killers = [
     {name:"El Trampero", img:"images/K01_TheTrapper_Portrait.png"},
     {name:"El Espectro", img:"images/K02_TheWraith_Portrait.png"},
@@ -43,11 +59,27 @@ const killers = [
     {name:"El Primero", img:"images/K42_TheFirst_Portrait.png"}
 ];
 
-let selectedOrder = [];
+let selectedOrder = JSON.parse(localStorage.getItem("selectedOrder")) || [];
+let winStreak = parseInt(localStorage.getItem("winStreak")) || 0;
+let bestStreak = parseInt(localStorage.getItem("bestStreak")) || 0;
 
 const killerGrid = document.getElementById("killerGrid");
 
-function renderKillers() {
+function saveData(){
+    localStorage.setItem("selectedOrder", JSON.stringify(selectedOrder));
+    localStorage.setItem("winStreak", winStreak);
+    localStorage.setItem("bestStreak", bestStreak);
+}
+
+function syncFirebase(){
+    set(ref(db, "overlay"), {
+        selectedOrder,
+        winStreak,
+        bestStreak
+    });
+}
+
+function renderKillers(){
 
     killerGrid.innerHTML = "";
 
@@ -56,65 +88,93 @@ function renderKillers() {
         const killerBox = document.createElement("div");
         killerBox.classList.add("killer");
 
-        const selectedIndex =
-            selectedOrder.findIndex(
-                k => k.name === killer.name
-            );
+        const selectedIndex = selectedOrder.findIndex(
+            k => k.name === killer.name
+        );
 
-        if (selectedIndex !== -1) {
+        if(selectedIndex !== -1){
             killerBox.classList.add("selected");
         }
 
         killerBox.innerHTML = `
-            ${selectedIndex !== -1
-                ? `<div class="order-number">${selectedIndex + 1}</div>`
-                : ""
-            }
-            <img src="${killer.img}" alt="${killer.name}">
+            ${selectedIndex !== -1 ? `<div class="order-number">${selectedIndex + 1}</div>` : ""}
+            <img src="${killer.img}">
             <div class="killer-name">${killer.name}</div>
         `;
 
-        killerBox.onclick = () => {
-
-            const exists =
-                selectedOrder.find(
-                    k => k.name === killer.name
-                );
-
-            if (exists) {
-
-                selectedOrder =
-                    selectedOrder.filter(
-                        k => k.name !== killer.name
-                    );
-
-            } else {
-
-                selectedOrder.push(killer);
-
-            }
-
-            renderKillers();
-        };
+        killerBox.onclick = () => selectKiller(killer);
 
         killerGrid.appendChild(killerBox);
     });
+
+    syncFirebase();
+    saveData();
 }
 
-window.randomOrder = function() {
+function selectKiller(killer){
 
-    selectedOrder =
-        [...selectedOrder]
-        .sort(() => Math.random() - 0.5);
+    const exists = selectedOrder.find(
+        k => k.name === killer.name
+    );
+
+    if(exists){
+        selectedOrder = selectedOrder.filter(
+            k => k.name !== killer.name
+        );
+    }else{
+        selectedOrder.push(killer);
+    }
 
     renderKillers();
-};
+}
 
-window.resetAll = function() {
+window.randomOrder = function(){
+
+    selectedOrder = [...selectedOrder].sort(
+        () => Math.random() - 0.5
+    );
+
+    renderKillers();
+}
+
+function rotateNext(){
+
+    if(selectedOrder.length > 0){
+        selectedOrder.shift();
+    }
+}
+
+window.addWin = function(){
+
+    winStreak++;
+
+    if(winStreak > bestStreak){
+        bestStreak = winStreak;
+    }
+
+    rotateNext();
+
+    renderKillers();
+}
+
+window.addLoss = function(){
+
+    winStreak = 0;
+
+    rotateNext();
+
+    renderKillers();
+}
+
+window.resetAll = function(){
 
     selectedOrder = [];
+    winStreak = 0;
+    bestStreak = 0;
+
+    localStorage.clear();
 
     renderKillers();
-};
+}
 
 renderKillers();
