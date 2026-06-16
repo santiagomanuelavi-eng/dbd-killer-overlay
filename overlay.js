@@ -14,13 +14,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const overlayRef = ref(db, "overlay");
-
-onValue(overlayRef, (snapshot) => {
+onValue(ref(db, "overlay"), (snapshot) => {
 
     const data = snapshot.val();
-
-    console.log("Firebase:", data);
 
     if (!data) return;
 
@@ -29,17 +25,12 @@ onValue(overlayRef, (snapshot) => {
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
-    if (img1) {
-        img1.src = selectedOrder[0]?.img || "";
-    }
-
-    if (img2) {
-        img2.src = selectedOrder[1]?.img || "";
-    }
+    img1.src = selectedOrder[0]?.img || "";
+    img2.src = selectedOrder[1]?.img || "";
 
     document.getElementById("winStreak").textContent =
-        data.winStreak ?? 0;
+        data.winStreak || 0;
 
     document.getElementById("bestStreak").textContent =
-        data.bestStreak ?? 0;
+        data.bestStreak || 0;
 });
