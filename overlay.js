@@ -20,27 +20,38 @@ onValue(overlayRef, (snapshot) => {
 
     const data = snapshot.val();
 
-    if(!data) return;
+    if(!data){
+        console.log("No hay datos en Firebase");
+        return;
+    }
 
     const selectedOrder = data.selectedOrder || [];
-    const winStreak = data.winStreak || 0;
-    const bestStreak = data.bestStreak || 0;
 
     const img1 = document.getElementById("img1");
     const img2 = document.getElementById("img2");
 
-    if(selectedOrder[0]){
+    if(selectedOrder.length > 0){
+
         img1.src = selectedOrder[0].img;
+
     }else{
+
         img1.src = "";
     }
 
-    if(selectedOrder[1]){
+    if(selectedOrder.length > 1){
+
         img2.src = selectedOrder[1].img;
+
     }else{
+
         img2.src = "";
     }
 
-    document.getElementById("winStreak").textContent = winStreak;
-    document.getElementById("bestStreak").textContent = bestStreak;
+    document.getElementById("winStreak").textContent =
+        data.winStreak || 0;
+
+    document.getElementById("bestStreak").textContent =
+        data.bestStreak || 0;
+
 });
