@@ -56,8 +56,10 @@ const killers = [
     {name:"El Ghoul", img:"images/K39_TheGhoul_Portrait.png"},
     {name:"El Animatrónico", img:"images/K40_TheAnimatronic_Portrait.png"},
     {name:"La Krasue", img:"images/K41_TheKrasue_Portrait.png"},
-    {name:"El Primero", img:"images/K42_TheFirst_Portrait.png"}
+    {name:"El Primero", img:"images/K42_TheFirst_Portrait.png"},
+{name:"Jason", img:"images/T_UI_K43_TheSlasher_Portrait.png"}
 ];
+
 
 let selectedOrder = JSON.parse(localStorage.getItem("selectedOrder")) || [];
 let winStreak = parseInt(localStorage.getItem("winStreak")) || 0;
