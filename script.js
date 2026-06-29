@@ -168,6 +168,13 @@ window.addLoss = function(){
     renderKillers();
 }
 
+window.addDraw = function(){
+
+    rotateNext();
+
+    renderKillers();
+}
+
 window.resetAll = function(){
 
     selectedOrder = [];
