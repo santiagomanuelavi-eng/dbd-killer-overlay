@@ -21,12 +21,22 @@ onValue(ref(db, "overlay"), (snapshot) => {
     if (!data) return;
 
     const selectedOrder = data.selectedOrder || [];
+    const killerStreaks = data.killerStreaks || {};
 
-    const img1 = document.getElementById("img1");
-    const img2 = document.getElementById("img2");
+    const current = selectedOrder[0];
+    const next = selectedOrder[1];
 
-    img1.src = selectedOrder[0]?.img || "";
-    img2.src = selectedOrder[1]?.img || "";
+    document.getElementById("img1").src = current?.img || "";
+    document.getElementById("img2").src = next?.img || "";
+
+    document.getElementById("name1").textContent = current?.name || "";
+    document.getElementById("name2").textContent = next?.name || "";
+
+    document.getElementById("killerStreak1").textContent =
+        current ? (killerStreaks[current.name] || 0) : 0;
+
+    document.getElementById("killerStreak2").textContent =
+        next ? (killerStreaks[next.name] || 0) : 0;
 
     document.getElementById("winStreak").textContent =
         data.winStreak || 0;
