@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Overlay Stream</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="overlay.css">
 
 </head>
@@ -12,20 +14,40 @@
 
 <div class="stream-overlay">
 
-    <div class="killer-display">
-        <span>JUGANDO</span>
+    <div class="killer-banner banner-playing">
+        <img class="banner-art" id="img1" src="">
+        <div class="banner-fade"></div>
+        <div class="banner-frame"></div>
 
-        <div class="rotation-slot">
-            <img id="img1" src="">
+        <div class="banner-text">
+            <span class="banner-label label-playing">JUGANDO</span>
+            <h2 class="banner-name" id="name1"></h2>
         </div>
+
+        <div class="killer-streak-badge">
+            <svg class="claw-icon" viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
+            <span id="killerStreak1">0</span>
+        </div>
+
+        <svg class="banner-claw-mark" viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
     </div>
 
-    <div class="killer-display">
-        <span>SIGUIENTE</span>
+    <div class="killer-banner banner-next">
+        <img class="banner-art" id="img2" src="">
+        <div class="banner-fade"></div>
+        <div class="banner-frame"></div>
 
-        <div class="rotation-slot">
-            <img id="img2" src="">
+        <div class="banner-text">
+            <span class="banner-label label-next">SIGUIENTE</span>
+            <h2 class="banner-name" id="name2"></h2>
         </div>
+
+        <div class="killer-streak-badge">
+            <svg class="claw-icon" viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
+            <span id="killerStreak2">0</span>
+        </div>
+
+        <svg class="banner-claw-mark" viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
     </div>
 
     <div class="streak-panel">
@@ -34,6 +56,8 @@
             <span>RACHA ACTUAL</span>
             <h3 id="winStreak">0</h3>
         </div>
+
+        <svg class="claw-icon claw-icon-center" viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
 
         <div class="streak-box">
             <span>MEJOR RACHA</span>
