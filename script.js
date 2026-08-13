@@ -64,6 +64,7 @@ const killers = [
 let selectedOrder = JSON.parse(localStorage.getItem("selectedOrder")) || [];
 let winStreak = parseInt(localStorage.getItem("winStreak")) || 0;
 let bestStreak = parseInt(localStorage.getItem("bestStreak")) || 0;
+let killerStreaks = JSON.parse(localStorage.getItem("killerStreaks")) || {};
 
 const killerGrid = document.getElementById("killerGrid");
 
@@ -71,13 +72,15 @@ function saveData(){
     localStorage.setItem("selectedOrder", JSON.stringify(selectedOrder));
     localStorage.setItem("winStreak", winStreak);
     localStorage.setItem("bestStreak", bestStreak);
+    localStorage.setItem("killerStreaks", JSON.stringify(killerStreaks));
 }
 
 function syncFirebase(){
     set(ref(db, "overlay"), {
         selectedOrder,
         winStreak,
-        bestStreak
+        bestStreak,
+        killerStreaks
     });
 }
 
@@ -148,10 +151,16 @@ function rotateNext(){
 
 window.addWin = function(){
 
+    const current = selectedOrder[0];
+
     winStreak++;
 
     if(winStreak > bestStreak){
         bestStreak = winStreak;
+    }
+
+    if(current){
+        killerStreaks[current.name] = (killerStreaks[current.name] || 0) + 1;
     }
 
     rotateNext();
@@ -161,7 +170,13 @@ window.addWin = function(){
 
 window.addLoss = function(){
 
+    const current = selectedOrder[0];
+
     winStreak = 0;
+
+    if(current){
+        killerStreaks[current.name] = 0;
+    }
 
     rotateNext();
 
@@ -180,6 +195,7 @@ window.resetAll = function(){
     selectedOrder = [];
     winStreak = 0;
     bestStreak = 0;
+    killerStreaks = {};
 
     localStorage.clear();
 
