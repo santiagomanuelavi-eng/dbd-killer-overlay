@@ -28,40 +28,81 @@
         <span></span>
     </div>
 
-    <div class="controls">
+    <div class="tabs">
+        <button class="tab-btn active" id="tabBtnKillers" onclick="showTab('killers')">LISTA DE KILLERS</button>
+        <button class="tab-btn" id="tabBtnSurvivor" onclick="showTab('survivor')">PERKS SURVIVOR</button>
+        <button class="tab-btn" id="tabBtnKillerPerks" onclick="showTab('killerperks')">PERKS KILLER</button>
+    </div>
 
-        <button onclick="randomOrder()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
-            ORDEN ALEATORIO
-        </button>
+    <div id="view-killers" class="tab-view">
 
-        <button class="btn-win" onclick="addWin()">
-            <svg viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6"/></svg>
-            VICTORIA
-        </button>
+        <div class="controls">
 
-        <button class="btn-loss" onclick="addLoss()">
-            <svg viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 5 L5 19"/></svg>
-            DERROTA
-        </button>
+            <button onclick="randomOrder()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+                ORDEN ALEATORIO
+            </button>
 
-        <button onclick="addDraw()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9 H20 M4 15 H20"/></svg>
-            EMPATE
-        </button>
+            <button class="btn-win" onclick="addWin()">
+                <svg viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6"/></svg>
+                VICTORIA
+            </button>
 
-        <button class="btn-reset" onclick="resetAll()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12 a8 8 0 1 1 3 6.2 M4 12 V6 M4 12 H10"/></svg>
-            REINICIO TOTAL
-        </button>
+            <button class="btn-loss" onclick="addLoss()">
+                <svg viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 5 L5 19"/></svg>
+                DERROTA
+            </button>
+
+            <button onclick="addDraw()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9 H20 M4 15 H20"/></svg>
+                EMPATE
+            </button>
+
+            <button class="btn-reset" onclick="resetAll()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12 a8 8 0 1 1 3 6.2 M4 12 V6 M4 12 H10"/></svg>
+                REINICIO TOTAL
+            </button>
+
+        </div>
+
+        <div id="killerGrid" class="grid"></div>
 
     </div>
 
-    <div id="killerGrid" class="grid"></div>
+    <div id="view-survivor" class="tab-view" style="display:none;">
+
+        <div class="perks-section">
+            <div class="perks-section-header">
+                <h2>PERKS SUPERVIVIENTE</h2>
+                <button class="btn-roll" onclick="rollSurvivorPerks()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+                    SORTEAR BUILD
+                </button>
+            </div>
+            <div id="survivorPerksResult" class="perks-grid"></div>
+        </div>
+
+    </div>
+
+    <div id="view-killerperks" class="tab-view" style="display:none;">
+
+        <div class="perks-section">
+            <div class="perks-section-header">
+                <h2>PERKS KILLER</h2>
+                <button class="btn-roll" onclick="rollKillerPerks()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+                    SORTEAR BUILD
+                </button>
+            </div>
+            <div id="killerPerksResult" class="perks-grid"></div>
+        </div>
+
+    </div>
 
 </div>
 
 <script type="module" src="script.js"></script>
+<script type="module" src="perks.js"></script>
 
 </body>
 </html>
