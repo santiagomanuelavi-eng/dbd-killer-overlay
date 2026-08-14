@@ -65,6 +65,7 @@ let selectedOrder = JSON.parse(localStorage.getItem("selectedOrder")) || [];
 let winStreak = parseInt(localStorage.getItem("winStreak")) || 0;
 let bestStreak = parseInt(localStorage.getItem("bestStreak")) || 0;
 let killerStreaks = JSON.parse(localStorage.getItem("killerStreaks")) || {};
+let matchStats = JSON.parse(localStorage.getItem("matchStats")) || {};
 
 const killerGrid = document.getElementById("killerGrid");
 
@@ -73,6 +74,7 @@ function saveData(){
     localStorage.setItem("winStreak", winStreak);
     localStorage.setItem("bestStreak", bestStreak);
     localStorage.setItem("killerStreaks", JSON.stringify(killerStreaks));
+    localStorage.setItem("matchStats", JSON.stringify(matchStats));
 }
 
 function syncFirebase(){
@@ -80,8 +82,28 @@ function syncFirebase(){
         selectedOrder,
         winStreak,
         bestStreak,
-        killerStreaks
+        killerStreaks,
+        matchStats
     });
+}
+
+function registerMatch(killerName, result){
+
+    if(!killerName){
+        return;
+    }
+
+    if(!matchStats[killerName]){
+        matchStats[killerName] = { wins: 0, losses: 0, draws: 0 };
+    }
+
+    if(result === "win"){
+        matchStats[killerName].wins++;
+    }else if(result === "loss"){
+        matchStats[killerName].losses++;
+    }else if(result === "draw"){
+        matchStats[killerName].draws++;
+    }
 }
 
 function renderKillers(){
@@ -161,6 +183,7 @@ window.addWin = function(){
 
     if(current){
         killerStreaks[current.name] = (killerStreaks[current.name] || 0) + 1;
+        registerMatch(current.name, "win");
     }
 
     rotateNext();
@@ -176,6 +199,7 @@ window.addLoss = function(){
 
     if(current){
         killerStreaks[current.name] = 0;
+        registerMatch(current.name, "loss");
     }
 
     rotateNext();
@@ -184,6 +208,12 @@ window.addLoss = function(){
 }
 
 window.addDraw = function(){
+
+    const current = selectedOrder[0];
+
+    if(current){
+        registerMatch(current.name, "draw");
+    }
 
     rotateNext();
 
@@ -196,6 +226,7 @@ window.resetAll = function(){
     winStreak = 0;
     bestStreak = 0;
     killerStreaks = {};
+    matchStats = {};
 
     localStorage.clear();
 
@@ -203,3 +234,28 @@ window.resetAll = function(){
 }
 
 renderKillers();
+
+document.addEventListener("keydown", (e) => {
+
+    const tag = document.activeElement.tagName;
+
+    if(tag === "INPUT" || tag === "TEXTAREA"){
+        return;
+    }
+
+    const killersView = document.getElementById("view-killers");
+
+    if(!killersView || killersView.style.display === "none"){
+        return;
+    }
+
+    const key = e.key.toLowerCase();
+
+    if(key === "v"){
+        window.addWin();
+    }else if(key === "d"){
+        window.addLoss();
+    }else if(key === "e"){
+        window.addDraw();
+    }
+});
