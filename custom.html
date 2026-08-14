@@ -15,25 +15,43 @@
 
 <div class="container">
 
+    <div class="top-accent"></div>
+
+    <div class="panel-header">
+        <h1>DBD <span>KILLER CONTROL</span></h1>
+        <p>Selecciona el orden y registra el resultado</p>
+    </div>
+
+    <div class="section-divider">
+        <span></span>
+        <svg viewBox="0 0 24 24"><path d="M4 2 L7 22 M9 1 L12 22 M15 1 L17 22 M20 2 L22 20"/></svg>
+        <span></span>
+    </div>
+
     <div class="controls">
 
         <button onclick="randomOrder()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="16" cy="16" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
             ORDEN ALEATORIO
         </button>
 
-        <button onclick="addWin()">
+        <button class="btn-win" onclick="addWin()">
+            <svg viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6"/></svg>
             VICTORIA
         </button>
 
-        <button onclick="addLoss()">
+        <button class="btn-loss" onclick="addLoss()">
+            <svg viewBox="0 0 24 24"><path d="M5 5 L19 19 M19 5 L5 19"/></svg>
             DERROTA
         </button>
 
         <button onclick="addDraw()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9 H20 M4 15 H20"/></svg>
             EMPATE
         </button>
 
-        <button onclick="resetAll()">
+        <button class="btn-reset" onclick="resetAll()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12 a8 8 0 1 1 3 6.2 M4 12 V6 M4 12 H10"/></svg>
             REINICIO TOTAL
         </button>
 
