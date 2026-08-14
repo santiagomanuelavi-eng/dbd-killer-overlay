@@ -201,6 +201,81 @@ body{
     color:var(--text-light);
 }
 
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:16px;
+    max-width:900px;
+    margin:0 auto 24px;
+}
+
+.stat-card{
+    background:var(--bg-black);
+    border:1px solid var(--accent-dark);
+    clip-path:polygon(12px 0, 100% 0, 100% 100%, 0 100%, 0 12px);
+    padding:18px 14px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(255,43,43,0.15);
+}
+
+.stat-card span{
+    display:block;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:var(--text-gray);
+    margin-bottom:6px;
+}
+
+.stat-card h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:30px;
+    margin:0;
+    color:var(--text-light);
+}
+
+.stat-card-accent{
+    border-color:var(--accent);
+    box-shadow:0 0 16px rgba(255,43,43,0.35);
+}
+
+.stat-card-accent h3{
+    color:var(--accent);
+    text-shadow:0 0 12px rgba(255,43,43,0.5);
+}
+
+.stats-highlight{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:16px;
+    max-width:900px;
+    margin:0 auto;
+}
+
+.highlight-card{
+    background:var(--bg-black);
+    border:1px solid var(--accent-dark);
+    clip-path:polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);
+    padding:20px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(255,43,43,0.15);
+}
+
+.highlight-card span{
+    display:block;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:var(--text-gray);
+    margin-bottom:8px;
+}
+
+.highlight-card h3{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:20px;
+    letter-spacing:1px;
+    margin:0;
+    color:var(--text-light);
+}
+
 .controls{
     display:flex;
     justify-content:center;
