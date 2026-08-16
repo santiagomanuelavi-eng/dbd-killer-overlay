@@ -69,6 +69,8 @@ let matchStats = JSON.parse(localStorage.getItem("matchStats")) || {};
 
 const killerGrid = document.getElementById("killerGrid");
 
+let syncTimeout = null;
+
 function saveData(){
     localStorage.setItem("selectedOrder", JSON.stringify(selectedOrder));
     localStorage.setItem("winStreak", winStreak);
@@ -78,13 +80,18 @@ function saveData(){
 }
 
 function syncFirebase(){
-    set(ref(db, "overlay"), {
-        selectedOrder,
-        winStreak,
-        bestStreak,
-        killerStreaks,
-        matchStats
-    });
+
+    clearTimeout(syncTimeout);
+
+    syncTimeout = setTimeout(() => {
+        set(ref(db, "overlay"), {
+            selectedOrder,
+            winStreak,
+            bestStreak,
+            killerStreaks,
+            matchStats
+        });
+    }, 250);
 }
 
 function registerMatch(killerName, result){
@@ -106,7 +113,9 @@ function registerMatch(killerName, result){
     }
 }
 
-function renderKillers(){
+const killerElements = {};
+
+function buildKillerGrid(){
 
     killerGrid.innerHTML = "";
 
@@ -115,23 +124,52 @@ function renderKillers(){
         const killerBox = document.createElement("div");
         killerBox.classList.add("killer");
 
+        const orderDiv = document.createElement("div");
+        orderDiv.classList.add("order-number");
+        orderDiv.style.display = "none";
+
+        const img = document.createElement("img");
+        img.src = killer.img;
+        img.loading = "lazy";
+
+        const nameDiv = document.createElement("div");
+        nameDiv.classList.add("killer-name");
+        nameDiv.textContent = killer.name;
+
+        killerBox.appendChild(orderDiv);
+        killerBox.appendChild(img);
+        killerBox.appendChild(nameDiv);
+
+        killerBox.onclick = () => selectKiller(killer);
+
+        killerGrid.appendChild(killerBox);
+
+        killerElements[killer.name] = { box: killerBox, orderDiv };
+    });
+}
+
+function renderKillers(){
+
+    killers.forEach(killer => {
+
+        const el = killerElements[killer.name];
+
+        if(!el){
+            return;
+        }
+
         const selectedIndex = selectedOrder.findIndex(
             k => k.name === killer.name
         );
 
         if(selectedIndex !== -1){
-            killerBox.classList.add("selected");
+            el.box.classList.add("selected");
+            el.orderDiv.style.display = "";
+            el.orderDiv.textContent = selectedIndex + 1;
+        }else{
+            el.box.classList.remove("selected");
+            el.orderDiv.style.display = "none";
         }
-
-        killerBox.innerHTML = `
-            ${selectedIndex !== -1 ? `<div class="order-number">${selectedIndex + 1}</div>` : ""}
-            <img src="${killer.img}">
-            <div class="killer-name">${killer.name}</div>
-        `;
-
-        killerBox.onclick = () => selectKiller(killer);
-
-        killerGrid.appendChild(killerBox);
     });
 
     syncFirebase();
@@ -233,6 +271,7 @@ window.resetAll = function(){
     renderKillers();
 }
 
+buildKillerGrid();
 renderKillers();
 
 document.addEventListener("keydown", (e) => {
