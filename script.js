@@ -174,6 +174,12 @@ function renderKillers(){
 
     syncFirebase();
     saveData();
+
+    const miniStreakValue = document.getElementById("miniStreakValue");
+
+    if(miniStreakValue){
+        miniStreakValue.textContent = winStreak;
+    }
 }
 
 function selectKiller(killer){
