@@ -91,7 +91,8 @@ body{
 
 .tabs{
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
+    align-items:center;
     gap:0;
     margin-bottom:28px;
     border-bottom:1px solid rgba(255,43,43,0.2);
@@ -122,6 +123,89 @@ body{
     color:var(--accent);
     border-bottom-color:var(--accent);
     text-shadow:0 0 12px rgba(255,43,43,0.5);
+}
+
+.menu-wrapper{
+    position:relative;
+    margin-bottom:-1px;
+}
+
+.menu-btn{
+    background:transparent;
+    border:none;
+    clip-path:none;
+    padding:10px 14px;
+    color:var(--text-gray);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    transition:.2s;
+}
+
+.menu-btn svg{
+    width:18px;
+    height:18px;
+}
+
+.menu-btn:hover{
+    color:var(--text-light);
+    background:transparent;
+    box-shadow:none;
+    transform:none;
+}
+
+.menu-btn.active{
+    color:var(--accent);
+    border-bottom-color:var(--accent);
+}
+
+.menu-dropdown{
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    margin-top:8px;
+    min-width:190px;
+    background:var(--bg-black);
+    border:1px solid var(--accent-dark);
+    clip-path:polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.6), 0 0 12px rgba(255,43,43,0.15);
+    z-index:20;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.menu-dropdown.open{
+    display:flex;
+}
+
+.menu-dropdown button{
+    background:transparent;
+    border:none;
+    clip-path:none;
+    color:var(--text-light);
+    text-align:left;
+    padding:12px 16px;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:13px;
+    letter-spacing:1.5px;
+    cursor:pointer;
+    border-bottom:1px solid rgba(255,43,43,0.1);
+    transition:.15s;
+}
+
+.menu-dropdown button:last-child{
+    border-bottom:none;
+}
+
+.menu-dropdown button:hover{
+    background:rgba(255,43,43,0.12);
+    box-shadow:none;
+    transform:none;
+}
+
+.menu-dropdown button.active{
+    color:var(--accent);
+    background:rgba(255,43,43,0.08);
 }
 
 .perks-section{
