@@ -71,13 +71,18 @@ function pickRandomFour(list){
     return result;
 }
 
-function setSlot(slot, perkName){
+function setSlotText(slot, perkName){
+    slot.querySelector("span").textContent = perkName;
+}
+
+function setSlotFinal(slot, perkName){
 
     const img = slot.querySelector("img");
     const span = slot.querySelector("span");
 
     img.onerror = () => { img.src = FALLBACK_ICON; };
     img.src = nameToIconUrl(perkName);
+    img.style.visibility = "visible";
     span.textContent = perkName;
 }
 
@@ -102,8 +107,6 @@ function rollSequential(containerId, list){
         }
 
         const slot = slots[slotIndex];
-        const img = slot.querySelector("img");
-        img.style.visibility = "visible";
 
         let ticks = 0;
         const totalTicks = 10;
@@ -114,13 +117,13 @@ function rollSequential(containerId, list){
 
             if(ticks >= totalTicks){
                 clearInterval(interval);
-                setSlot(slot, finalPerks[slotIndex]);
+                setSlotFinal(slot, finalPerks[slotIndex]);
                 slot.classList.add("locked");
                 animateSlot(slotIndex + 1);
                 return;
             }
 
-            setSlot(slot, list[Math.floor(Math.random() * list.length)]);
+            setSlotText(slot, list[Math.floor(Math.random() * list.length)]);
 
         }, 130);
     }
@@ -141,8 +144,35 @@ window.showTab = function(tab){
     document.getElementById("view-killers").style.display = tab === "killers" ? "" : "none";
     document.getElementById("view-survivor").style.display = tab === "survivor" ? "" : "none";
     document.getElementById("view-killerperks").style.display = tab === "killerperks" ? "" : "none";
+    document.getElementById("view-stats").style.display = tab === "stats" ? "" : "none";
 
     document.getElementById("tabBtnKillers").classList.toggle("active", tab === "killers");
-    document.getElementById("tabBtnSurvivor").classList.toggle("active", tab === "survivor");
-    document.getElementById("tabBtnKillerPerks").classList.toggle("active", tab === "killerperks");
+    document.getElementById("menuBtn").classList.toggle("active", tab !== "killers");
+
+    document.getElementById("menuItemSurvivor").classList.toggle("active", tab === "survivor");
+    document.getElementById("menuItemKillerPerks").classList.toggle("active", tab === "killerperks");
+    document.getElementById("menuItemStats").classList.toggle("active", tab === "stats");
+
+    if(tab === "stats" && window.renderStats){
+        window.renderStats();
+    }
+
+    closeMenu();
 }
+
+window.toggleMenu = function(){
+    document.getElementById("menuDropdown").classList.toggle("open");
+}
+
+function closeMenu(){
+    document.getElementById("menuDropdown").classList.remove("open");
+}
+
+document.addEventListener("click", (e) => {
+
+    const wrapper = document.querySelector(".menu-wrapper");
+
+    if(wrapper && !wrapper.contains(e.target)){
+        closeMenu();
+    }
+});
