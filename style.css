@@ -130,6 +130,39 @@ body{
     margin-bottom:-1px;
 }
 
+.mini-streak{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,43,43,0.06);
+    border:1px solid var(--accent-dark);
+    border-radius:20px;
+    padding:5px 12px;
+    margin-bottom:8px;
+}
+
+.mini-streak-icon{
+    width:12px;
+    height:12px;
+    stroke:var(--accent);
+    stroke-width:1.6;
+    fill:none;
+}
+
+.mini-streak span{
+    font-family:'Oswald', sans-serif;
+    font-size:9px;
+    letter-spacing:1.5px;
+    color:var(--text-gray);
+}
+
+.mini-streak strong{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:15px;
+    color:var(--accent);
+    text-shadow:0 0 8px rgba(255,43,43,0.4);
+}
+
 .menu-btn{
     background:transparent;
     border:none;
