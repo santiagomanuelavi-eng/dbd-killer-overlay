@@ -1,4 +1,5 @@
 const killerPerks = [
+    "Celestial Witness", "Hex: Under Your Thumb", "Lay Waste",
     "Barbecue & Chilli", "Corrupt Intervention", "Hex: Ruin", "Pop Goes the Weasel",
     "Tinkerer", "A Nurse's Calling", "Sloppy Butcher", "Thanatophobia",
     "Whispers", "Bitter Murmur", "Deerstalker", "Monitor & Abuse",
@@ -15,6 +16,7 @@ const killerPerks = [
 ];
 
 const survivorPerks = [
+    "Fruits of Your Labor", "Salvation's Cry", "Boon: Steadfast",
     "Adrenaline", "Borrowed Time", "Bond", "Kindred",
     "Self-Care", "Sprint Burst", "Dead Hard", "Decisive Strike",
     "Unbreakable", "We'll Make It", "Prove Thyself", "Windows of Opportunity",
@@ -30,7 +32,21 @@ const survivorPerks = [
     "Small Game", "This Is Not Happening"
 ];
 
+const iconOverrides = {
+    "Celestial Witness": "T_UI_iconsPerks_CelestialWitness",
+    "Hex: Under Your Thumb": "T_UI_iconsPerks_HexUnderYourThumb",
+    "Lay Waste": "T_UI_iconsPerks_LayWaste",
+    "Fruits of Your Labor": "T_UI_iconsPerks_FruitsOfYourLabor",
+    "Salvation's Cry": "T_UI_iconsPerks_SalvationsCry",
+    "Boon: Steadfast": "T_UI_iconsPerks_BoonSteadfast"
+};
+
 function nameToIconUrl(name){
+
+    if(iconOverrides[name]){
+        const file = iconOverrides[name];
+        return `https://deadbydaylight.wiki.gg/images/thumb/${file}.png/256px-${file}.png`;
+    }
 
     let clean = name
         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
