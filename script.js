@@ -15,6 +15,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const killers = [
+    {name:"The Judgment", img:"https://deadbydaylight.wiki.gg/images/K44_TheJudgment_Portrait.png"},
     {name:"El Trampero", img:"images/K01_TheTrapper_Portrait.png"},
     {name:"El Espectro", img:"images/K02_TheWraith_Portrait.png"},
     {name:"El Pueblerino", img:"images/K03_TheHillbilly_Portrait.png"},
