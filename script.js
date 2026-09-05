@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCjfzsrXDWEeCdFiIvMebJ2Wz3LdK8wt5I",
@@ -13,6 +14,12 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
+
+signInWithEmailAndPassword(auth, "santiagomanuelavi@gmail.com", "Francia1665")
+    .catch((error) => {
+        console.error("No se pudo iniciar sesión con Firebase:", error);
+    });
 
 const killers = [
     {name:"The Judgment", img:"https://deadbydaylight.wiki.gg/images/K44_TheJudgment_Portrait.png"},
