@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCjfzsrXDWEeCdFiIvMebJ2Wz3LdK8wt5I",
@@ -16,10 +16,43 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-signInWithEmailAndPassword(auth, "santiagomanuelavi@gmail.com", "Francia1665")
-    .catch((error) => {
-        console.error("No se pudo iniciar sesión con Firebase:", error);
-    });
+const loginScreen = document.getElementById("loginScreen");
+const mainContainer = document.getElementById("mainContainer");
+const loginForm = document.getElementById("loginForm");
+const loginError = document.getElementById("loginError");
+
+let appStarted = false;
+
+onAuthStateChanged(auth, (user) => {
+
+    if(user){
+        loginScreen.style.display = "none";
+        mainContainer.style.display = "";
+
+        if(!appStarted){
+            appStarted = true;
+            startApp();
+        }
+    }else{
+        loginScreen.style.display = "flex";
+        mainContainer.style.display = "none";
+    }
+});
+
+loginForm.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    loginError.textContent = "";
+
+    signInWithEmailAndPassword(auth, email, password)
+        .catch(() => {
+            loginError.textContent = "Correo o contraseña incorrectos.";
+        });
+});
 
 const killers = [
     {name:"The Judgment", img:"https://deadbydaylight.wiki.gg/images/K44_TheJudgment_Portrait.png"},
@@ -285,8 +318,10 @@ window.resetAll = function(){
     renderKillers();
 }
 
-buildKillerGrid();
-renderKillers();
+function startApp(){
+    buildKillerGrid();
+    renderKillers();
+}
 
 document.addEventListener("keydown", (e) => {
 
