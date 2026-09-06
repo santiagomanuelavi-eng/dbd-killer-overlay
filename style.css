@@ -17,6 +17,80 @@ body{
     min-height:100vh;
 }
 
+.login-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg-black);
+}
+
+.login-box{
+    width:280px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,0.2);
+    background:var(--bg-card);
+    text-align:center;
+}
+
+.login-box h1{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:22px;
+    letter-spacing:1px;
+    margin:0;
+    text-transform:uppercase;
+}
+
+.login-box h1 span{
+    border-bottom:2px solid var(--text-light);
+}
+
+.login-box p{
+    font-size:11px;
+    letter-spacing:1px;
+    color:var(--text-gray);
+    text-transform:uppercase;
+    margin:0 0 8px;
+}
+
+.login-box input{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.3);
+    color:var(--text-light);
+    padding:12px;
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+}
+
+.login-box input::placeholder{
+    color:var(--text-gray);
+}
+
+.login-box button{
+    justify-content:center;
+    background:var(--text-light);
+    color:var(--bg-black);
+    border:1px solid var(--text-light);
+    font-family:'Anton', sans-serif;
+    font-size:13px;
+    padding:12px;
+}
+
+.login-box button:hover{
+    background:transparent;
+    color:var(--text-light);
+}
+
+.login-error{
+    font-size:11px;
+    color:#F35B6A;
+    min-height:14px;
+}
+
 .container{
     width:100%;
     max-width:1450px;
