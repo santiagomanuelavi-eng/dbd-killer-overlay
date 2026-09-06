@@ -161,6 +161,7 @@ window.showTab = function(tab){
     document.getElementById("view-survivor").style.display = tab === "survivor" ? "" : "none";
     document.getElementById("view-killerperks").style.display = tab === "killerperks" ? "" : "none";
     document.getElementById("view-stats").style.display = tab === "stats" ? "" : "none";
+    document.getElementById("view-chase").style.display = tab === "chase" ? "" : "none";
 
     document.getElementById("tabBtnKillers").classList.toggle("active", tab === "killers");
     document.getElementById("menuBtn").classList.toggle("active", tab !== "killers");
@@ -168,6 +169,7 @@ window.showTab = function(tab){
     document.getElementById("menuItemSurvivor").classList.toggle("active", tab === "survivor");
     document.getElementById("menuItemKillerPerks").classList.toggle("active", tab === "killerperks");
     document.getElementById("menuItemStats").classList.toggle("active", tab === "stats");
+    document.getElementById("menuItem1v1").classList.toggle("active", tab === "chase");
 
     if(tab === "stats" && window.renderStats){
         window.renderStats();
