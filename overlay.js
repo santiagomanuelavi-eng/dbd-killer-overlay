@@ -14,6 +14,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+function updateBanner(prefix, killerData, streakValue){
+
+    const img = document.getElementById(`img${prefix}`);
+    const nameEl = document.getElementById(`name${prefix}`);
+    const streakEl = document.getElementById(`killerStreak${prefix}`);
+
+    const newSrc = killerData?.img || "";
+    const newName = killerData?.name || "";
+
+    streakEl.textContent = streakValue;
+
+    if(img.dataset.currentSrc === newSrc){
+        return;
+    }
+
+    img.style.opacity = 0;
+    nameEl.style.opacity = 0;
+
+    setTimeout(() => {
+        img.src = newSrc;
+        nameEl.textContent = newName;
+        img.dataset.currentSrc = newSrc;
+
+        requestAnimationFrame(() => {
+            img.style.opacity = 1;
+            nameEl.style.opacity = 1;
+        });
+    }, 250);
+}
+
 onValue(ref(db, "overlay"), (snapshot) => {
 
     const data = snapshot.val();
@@ -26,17 +56,8 @@ onValue(ref(db, "overlay"), (snapshot) => {
     const current = selectedOrder[0];
     const next = selectedOrder[1];
 
-    document.getElementById("img1").src = current?.img || "";
-    document.getElementById("img2").src = next?.img || "";
-
-    document.getElementById("name1").textContent = current?.name || "";
-    document.getElementById("name2").textContent = next?.name || "";
-
-    document.getElementById("killerStreak1").textContent =
-        current ? (killerStreaks[current.name] || 0) : 0;
-
-    document.getElementById("killerStreak2").textContent =
-        next ? (killerStreaks[next.name] || 0) : 0;
+    updateBanner(1, current, current ? (killerStreaks[current.name] || 0) : 0);
+    updateBanner(2, next, next ? (killerStreaks[next.name] || 0) : 0);
 
     document.getElementById("winStreak").textContent =
         data.winStreak || 0;
