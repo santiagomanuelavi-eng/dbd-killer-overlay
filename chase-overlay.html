@@ -1,22 +1,223 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chase Timer Overlay</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<html><head><meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="overlay.css">
-</head>
+<style>
+body{background:#111;padding:30px;}
+:root{
+    --text-light:#FFFFFF;
+    --text-gray:#8A8A8A;
+    --bg-black:#000000;
+    --bg-card:#0A0A0A;
+    --overlay-width:300px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    background:transparent;
+    font-family:'Inter', Arial, sans-serif;
+    color:var(--text-light);
+    margin:0;
+    padding:8px;
+}
+
+.stream-overlay{
+    width:var(--overlay-width);
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.killer-banner{
+    position:relative;
+    width:100%;
+    height:130px;
+    overflow:hidden;
+    background:var(--bg-card);
+    border:1px solid rgba(255,255,255,0.25);
+    clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+    box-shadow:0 10px 24px rgba(0,0,0,0.6);
+}
+
+.banner-art{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 15%;
+    filter:brightness(0.9) contrast(1.05) saturate(1);
+}
+
+.banner-fade{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 30%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0.05) 100%);
+}
+
+.banner-frame{
+    position:absolute;
+    inset:0;
+    clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+    border:1px solid rgba(255,255,255,0.12);
+    pointer-events:none;
+}
+
+.banner-text{
+    position:relative;
+    z-index:2;
+    padding:12px 14px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:4px;
+    height:100%;
+    width:60%;
+}
+
+.banner-label{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    letter-spacing:3px;
+    font-size:11px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.label-playing{
+    color:var(--text-light);
+    position:relative;
+    padding-left:14px;
+}
+
+.label-playing::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:8px;
+    height:8px;
+    background:var(--text-light);
+    border-radius:50%;
+}
+
+.label-next{
+    color:var(--text-gray);
+}
+
+.banner-name{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:18px;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+    margin:0;
+    text-shadow:0 2px 8px rgba(0,0,0,0.9);
+    line-height:1.05;
+}
+
+.killer-streak-badge{
+    position:absolute;
+    top:10px;
+    right:10px;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    background:rgba(0,0,0,0.6);
+    border:1px solid rgba(255,255,255,0.4);
+    padding:4px 10px;
+}
+
+.claw-icon{
+    width:11px;
+    height:11px;
+    stroke:var(--text-light);
+    stroke-width:1.8;
+    fill:none;
+}
+
+.killer-streak-badge span{
+    font-family:'Anton', sans-serif;
+    font-size:13px;
+    color:var(--text-light);
+}
+
+.streak-panel{
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--bg-card);
+    border:1px solid rgba(255,255,255,0.25);
+    clip-path:polygon(0 0, 100% 0, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    padding:12px 16px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.6);
+}
+
+.streak-box{
+    text-align:center;
+    flex:1;
+}
+
+.streak-box span{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size:9px;
+    letter-spacing:1.5px;
+    color:var(--text-gray);
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.streak-box h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:22px;
+    margin:0;
+    color:var(--text-light);
+}
+
+.streak-divider{
+    width:1px;
+    height:32px;
+    background:rgba(255,255,255,0.25);
+    margin:0 14px;
+}
+
+.chase-box{
+    position:relative;
+    width:180px;
+    text-align:center;
+    background:var(--bg-card);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:10px 16px;
+}
+
+.chase-box span{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size:10px;
+    letter-spacing:1.5px;
+    color:var(--text-gray);
+    text-transform:uppercase;
+    margin-bottom:4px;
+}
+
+.chase-box h3{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:24px;
+    margin:0;
+    color:var(--text-light);
+}
+</style></head>
 <body>
-
-<div class="chase-box" id="chaseBox" style="display:none;">
-    <span id="chaseName"></span>
-    <h3 id="chaseClockOverlay">00:00</h3>
+<div class="chase-box">
+    <span>El Trampero</span>
+    <h3>01:23</h3>
 </div>
-
-<script type="module" src="chase-overlay.js"></script>
-
-</body>
-</html>
+</body></html>
