@@ -56,6 +56,7 @@
                 <button id="menuItemSurvivor" onclick="showTab('survivor')">PERKS SURVIVOR</button>
                 <button id="menuItemKillerPerks" onclick="showTab('killerperks')">PERKS KILLER</button>
                 <button id="menuItemStats" onclick="showTab('stats')">ESTADÍSTICAS</button>
+                <button id="menuItem1v1" onclick="showTab('chase')">1V1 CHASE</button>
             </div>
         </div>
     </div>
@@ -165,11 +166,32 @@
 
     </div>
 
+    <div id="view-chase" class="tab-view" style="display:none;">
+
+        <div class="chase-timer-box">
+            <h3 id="chaseClock">00:00</h3>
+            <div class="chase-timer-buttons">
+                <button id="chaseStartBtn" onclick="startChase()">INICIAR</button>
+                <button id="chaseStopBtn" onclick="stopChase()">DETENER</button>
+                <button class="btn-reset" onclick="resetChase()">REINICIAR</button>
+            </div>
+        </div>
+
+        <div class="chase-form">
+            <input type="text" id="chaseName" placeholder="Nombre (killer o superviviente)">
+            <button onclick="saveChaseEntry()">GUARDAR REGISTRO</button>
+        </div>
+
+        <div id="chaseLog" class="chase-log"></div>
+
+    </div>
+
 </div>
 
 <script type="module" src="script.js"></script>
 <script type="module" src="perks.js"></script>
 <script type="module" src="stats.js"></script>
+<script type="module" src="chase.js"></script>
 
 </body>
 </html>
